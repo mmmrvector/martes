@@ -21,26 +21,30 @@
   "dependencies": {
     "@nestjs/common": "^6.5.3",
     "@nestjs/core": "^6.5.3",
-    "@nestjs/platform-express": "^6.0.0",
+    "@nestjs/mongoose": "^6.1.2",
+    "@nestjs/platform-express": "^6.10.1",
+    "mongoose": "^5.7.12",
+    "redis": "^2.8.0",
     "reflect-metadata": "^0.1.12",
-    "rimraf": "^2.6.2",
-    "rxjs": "^6.0.0"
+    "rimraf": "^2.7.1",
+    "rxjs": "^6.0.0",
+    "tsc": "^1.20150623.0"
   },
   "devDependencies": {
-    "@nestjs/testing": "^6.1.1",
+    "@nestjs/testing": "^6.9.0",
     "@types/express": "4.16.1",
     "@types/jest": "^24.0.11",
-    "@types/node": "11.13.4",
+    "@types/node": "^10.1.4",
     "@types/supertest": "2.0.7",
     "jest": "24.7.1",
     "prettier": "1.17.0",
     "supertest": "4.0.2",
     "ts-jest": "24.0.2",
-    "ts-node": "8.1.0",
+    "ts-node": "^8.1.0",
     "tsc-watch": "2.2.1",
-    "tsconfig-paths": "3.8.0",
+    "tsconfig-paths": "^3.8.0",
     "tslint": "5.16.0",
-    "typescript": "3.4.3"
+    "typescript": "^3.4.3"
   },
   "jest": {
     "moduleFileExtensions": [
