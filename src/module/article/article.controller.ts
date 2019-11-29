@@ -12,14 +12,13 @@ export class ArticleController {
 
   /**
    * Note:
-   * 1. @UseGuards()有执行顺序，靠近方法的（在下面的）会先执行，由于在jwt验证过程中会添加角色，
-   *    并将user对象绑定到Request上去，因此必须先进行jwt校验，再进行角色校验
+   * 1. @UseGuards()有执行顺序，由于在jwt验证过程中会添加角色，并将user对象绑定到Request上去，
+   *    因此必须先进行jwt校验，再进行角色校验
    * @param article
    */
   @Post()
   @Roles('admin')
-  @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   addArticle(@Body() article: Article) {
     return this.articleService.addArticle(article);
   }
