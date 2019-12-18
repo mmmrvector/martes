@@ -10,7 +10,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'user_name' })
+  @Column()
   username: string;
 
   @Column()
@@ -21,6 +21,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column()
+  nickname: string;
 
   @Column({ type: 'simple-array' })
   roles: string[];

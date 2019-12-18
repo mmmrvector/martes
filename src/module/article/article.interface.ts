@@ -1,8 +1,10 @@
-export interface Article {
-  title: String;
-  author: String;
-  content: String;
-  createdAt: String;
-  updatedAt: String;
+import { Document } from 'mongoose';
+
+export interface Article extends Document {
+  title: string;
+  author: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
   keywords: [];
 }

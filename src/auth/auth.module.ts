@@ -14,13 +14,13 @@ import { JwtStrategy } from './jwt.strategy';
 @Module({
   imports: [
     UsersModule,
-    //默认策略配置，不必在@AuthGuard装饰器中传递名称
+    // 默认策略配置，不必在@AuthGuard装饰器中传递名称
     PassportModule.register({ defaultStrategy: 'jwt' }),
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
-      //jwt秘钥
+      // jwt秘钥
       secret: jwtConstants.secret,
-      //jwt过期时间 eg 2h, 10d
+      // jwt过期时间 eg 2h, 10d
       signOptions: { expiresIn: '1h' },
     }),
   ],

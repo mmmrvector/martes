@@ -1,4 +1,13 @@
-import { Controller, Post, Body, Logger, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Logger,
+  UseGuards,
+  Get,
+  Query,
+  Param,
+} from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { Article } from './article.interface';
 import { Roles } from '../../decorator/roles.decorator';
@@ -21,5 +30,20 @@ export class ArticleController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   addArticle(@Body() article: Article) {
     return this.articleService.addArticle(article);
+  }
+
+  @Get()
+  findArticlesByTitle(@Query('title') title: string) {
+    return this.articleService.findArticlesByTitle(title);
+  }
+
+  @Get('all')
+  findArticles(@Query('p') pageNum: number, @Query('ps') pageSize: number) {
+    return this.articleService.findArticles(pageNum, pageSize);
+  }
+
+  @Get(':id')
+  findArticleById(@Param('id') id: string) {
+    return this.articleService.findArticleById(id);
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../module/user/user.service';
 import { JwtService } from '@nestjs/jwt';
+import { createHash } from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -10,8 +11,14 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, pass: string) {
-    const user = await this.userService.findOne(username);
-    if (user && user.password === pass) {
+    const user = await this.userService.findUserByUsername(username);
+    if (
+      user &&
+      user.password ===
+        createHash('md5')
+          .update(pass)
+          .digest('hex')
+    ) {
       const { password, ...result } = user;
       return result;
     }

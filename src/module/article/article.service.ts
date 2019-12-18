@@ -11,6 +11,24 @@ export class ArticleService {
 
   async addArticle(article: Article): Promise<Article> {
     const createdArticle = new this.articleModel(article);
-    return await createdArticle.save();
+    return createdArticle.save();
+  }
+
+  async findArticlesByTitle(title: string) {
+    const article = this.articleModel.find({ title });
+    return article;
+  }
+
+  async findArticleById(id: string) {
+    const article = this.articleModel.findById(id);
+    return article;
+  }
+
+  async findArticles(pageNum: number, pageSize: number) {
+    const articles = this.articleModel
+      .find()
+      .limit(parseInt(String(pageSize), 10))
+      .skip((pageNum - 1) * pageSize);
+    return articles;
   }
 }

@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {
-    //passport策略配置，更多可用选项参考 https://github.com/mikenicholson/passport-jwt#configure-strategy
+    // passport策略配置，更多可用选项参考 https://github.com/mikenicholson/passport-jwt#configure-strategy
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -26,7 +26,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @param payload
    */
   async validate(payload: any) {
-    //在此处给用户添加角色属性
+    // 在此处给用户添加角色属性
     const user = await this.userRepository.findOne(payload.sub);
     const roles = user.roles;
     return {

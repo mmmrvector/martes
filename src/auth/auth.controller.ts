@@ -17,6 +17,10 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
+  /**
+   * 用户登录后，通过此接口获取其基本信息
+   * @param req
+   */
   @UseGuards(AuthGuard('jwt'))
   @Get('profile')
   getProfile(@Request() req) {
