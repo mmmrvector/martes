@@ -19,6 +19,10 @@ import { RolesGuard } from 'src/guard/roles.guard';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  /**
+   * 添加一个用户
+   * @param user 用户
+   */
   @Post()
   async addUser(@Body() user: User) {
     const retUser = await this.userService.createUser(user);
@@ -27,6 +31,11 @@ export class UserController {
     return retUser;
   }
 
+  /**
+   * 获取用户列表
+   * @param pageNum 页数
+   * @param pageSize 每页数据数
+   */
   @Get('all')
   @Roles('admin')
   @UseGuards(RolesGuard)

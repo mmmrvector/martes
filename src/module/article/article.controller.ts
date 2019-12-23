@@ -23,7 +23,9 @@ export class ArticleController {
    * Note:
    * 1. @UseGuards()有执行顺序，由于在jwt验证过程中会添加角色，并将user对象绑定到Request上去，
    *    因此必须先进行jwt校验，再进行角色校验
-   * @param article
+   *
+   * 添加一篇文章
+   * @param article 文章内容
    */
   @Post()
   @Roles('admin')
@@ -32,16 +34,33 @@ export class ArticleController {
     return this.articleService.addArticle(article);
   }
 
+  /**
+   * 根据文章标题查找文章列表
+   * @param {string} title 文章标题
+   */
   @Get()
-  findArticlesByTitle(@Query('title') title: string) {
-    return this.articleService.findArticlesByTitle(title);
+  findArticlesByTitle(
+    @Query('title') title: string,
+    @Query('p') pageNum: number,
+    @Query('ps') pageSize: number,
+  ) {
+    return this.articleService.findArticlesByTitle(title, pageNum, pageSize);
   }
 
+  /**
+   * 获取文章列表
+   * @param pageNum 页数
+   * @param pageSize 每页数据数
+   */
   @Get('all')
   findArticles(@Query('p') pageNum: number, @Query('ps') pageSize: number) {
     return this.articleService.findArticles(pageNum, pageSize);
   }
 
+  /**
+   * 根据文章id查找文章
+   * @param id 文章id
+   */
   @Get(':id')
   findArticleById(@Param('id') id: string) {
     return this.articleService.findArticleById(id);

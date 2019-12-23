@@ -14,8 +14,11 @@ export class ArticleService {
     return createdArticle.save();
   }
 
-  async findArticlesByTitle(title: string) {
-    const article = this.articleModel.find({ title });
+  async findArticlesByTitle(title: string, pageNum: number, pageSize: number) {
+    const article = this.articleModel
+      .find({ title })
+      .limit(parseInt(String(pageSize), 10))
+      .skip((pageNum - 1) * pageSize);
     return article;
   }
 
