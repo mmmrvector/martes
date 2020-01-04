@@ -12,8 +12,8 @@ import {
 import { UserService } from './user.service';
 import { User } from '../../database/entity/user.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { Roles } from 'src/decorator/roles.decorator';
-import { RolesGuard } from 'src/guard/roles.guard';
+import { Roles } from '../../decorator/roles.decorator';
+import { RolesGuard } from '../../guard/roles.guard';
 
 @Controller('user')
 export class UserController {
