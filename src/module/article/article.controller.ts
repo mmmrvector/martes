@@ -7,6 +7,8 @@ import {
   Get,
   Query,
   Param,
+  Delete,
+  Req,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { Article } from './article.interface';
@@ -70,5 +72,13 @@ export class ArticleController {
   @Get(':id')
   findArticleById(@Param('id') id: string) {
     return this.articleService.findArticleById(id);
+  }
+
+  @Roles('user', 'admin')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Delete(':id')
+  deleteArticle(@Req() req: any, @Param('id') id: string) {
+    const user = req.user;
+    return this.articleService.deleteArticle(user, id);
   }
 }

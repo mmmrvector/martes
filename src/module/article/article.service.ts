@@ -1,4 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  UnauthorizedException,
+  HttpException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Article } from './article.interface';
@@ -42,5 +47,13 @@ export class ArticleService {
       .limit(parseInt(String(pageSize), 10))
       .skip((pageNum - 1) * pageSize);
     return articles;
+  }
+  async deleteArticle(user: any, id: string) {
+    const article = await this.articleModel.findById(id);
+    if (!user.roles.includes('admin') && user.username !== article.author)
+      throw new UnauthorizedException(403, '没有删除该文章的权限');
+    const res = await this.articleModel.findByIdAndDelete(id);
+    if (!res) throw new HttpException('删除失败', 403);
+    return res;
   }
 }
