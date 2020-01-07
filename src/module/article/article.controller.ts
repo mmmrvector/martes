@@ -28,12 +28,18 @@ export class ArticleController {
    * @param article 文章内容
    */
   @Post()
-  @Roles('admin')
+  @Roles('user')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   addArticle(@Body() article: Article) {
     return this.articleService.addArticle(article);
   }
 
+  @Post(':id')
+  @Roles('user')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  updateArticle(@Body() article: Article, @Param('id') id: string) {
+    return this.articleService.updateArticle(article, id);
+  }
   /**
    * 根据文章标题查找文章列表
    * @param {string} title 文章标题
