@@ -19,7 +19,10 @@ export class ArticleService {
     return createdArticle.save();
   }
 
-  async updateArticle(article: Article, id: string) {
+  async updateArticle(article: Article, id: string, user: any) {
+    const originArticle = await this.articleModel.findById(id);
+    if (user.userId !== originArticle.authorId)
+      throw new HttpException('没有权限更新此文章', 403);
     const updateArticle = await this.articleModel.findByIdAndUpdate(
       id,
       article,
@@ -50,7 +53,7 @@ export class ArticleService {
   }
   async deleteArticle(user: any, id: string) {
     const article = await this.articleModel.findById(id);
-    if (!user.roles.includes('admin') && user.username !== article.author)
+    if (!user.roles.includes('admin') && user.userId !== article.authorId)
       throw new UnauthorizedException(403, '没有删除该文章的权限');
     const res = await this.articleModel.findByIdAndDelete(id);
     if (!res) throw new HttpException('删除失败', 403);

@@ -39,8 +39,13 @@ export class ArticleController {
   @Post(':id')
   @Roles('user')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  updateArticle(@Body() article: Article, @Param('id') id: string) {
-    return this.articleService.updateArticle(article, id);
+  updateArticle(
+    @Req() req: any,
+    @Body() article: Article,
+    @Param('id') id: string,
+  ) {
+    const user = req.user;
+    return this.articleService.updateArticle(article, id, user);
   }
   /**
    * 根据文章标题查找文章列表

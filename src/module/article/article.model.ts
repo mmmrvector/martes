@@ -5,6 +5,7 @@ import * as mongoose from 'mongoose';
 export const ArticleSchema = new mongoose.Schema({
   title: String,
   author: String,
+  authorId: Number,
   content: String,
   createdAt: String,
   updatedAt: String,
