@@ -1,12 +1,5 @@
-import {
-  Controller,
-  Get,
-  Post,
-  UseInterceptors,
-  UploadedFile,
-} from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { ImageService } from './image.service';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('image')
 export class ImageController {
@@ -16,4 +9,25 @@ export class ImageController {
   getUploadToken() {
     return this.imageService.getUploadToken();
   }
+
+  @Post('album')
+  createAlbum() {}
+
+  @Get('albums')
+  findAlbums() {}
+
+  @Get('album/photos')
+  findPhotos() {}
+
+  @Get('album/photo/:id')
+  findPhoto() {}
+
+  @Post('album/photo')
+  addPhoto() {}
+
+  @Post('album/photos')
+  addPhotos() {}
+
+  @Get('album/:id')
+  findAlbum() {}
 }

@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Album } from './album.entity';
 
 export enum Gender {
   MAN = 0,
@@ -27,4 +28,16 @@ export class User {
 
   @Column({ type: 'simple-array' })
   roles: string[];
+
+  @OneToMany(
+    type => Album,
+    album => album.user,
+  )
+  albums: Album[];
+
+  @Column({
+    name: 'profile_picture',
+    default: 'http://img-url.mrvector.cn/FoeFiF0N5g2AkzhOBD_QCft_oFjS',
+  })
+  profilePicture: string;
 }
