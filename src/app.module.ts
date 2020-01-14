@@ -7,6 +7,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggerInterceptor } from './interceptor/logger.interceptor';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
+import { ImageModule } from './module/image/image.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { DatabaseModule } from './database/database.module';
     ArticleModule,
     AuthModule,
     DatabaseModule.forRoot({ folder: '/env/database' }),
+    ImageModule,
   ],
   controllers: [AppController],
   providers: [

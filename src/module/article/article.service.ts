@@ -5,13 +5,18 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Article } from './article.interface';
+import { ConfigService } from '../../config/config.service';
+import * as qiniu from 'qiniu';
+import { RandomService } from '../utils/random.service';
 @Injectable()
 export class ArticleService {
   private readonly logger = new Logger('Article');
+  private readonly randomService = new RandomService();
   constructor(
     @InjectModel('Article') private readonly articleModel: Model<Article>,
+    private readonly configService: ConfigService,
   ) {}
 
   async addArticle(article: Article): Promise<Article> {
@@ -51,6 +56,7 @@ export class ArticleService {
       .skip((pageNum - 1) * pageSize);
     return articles;
   }
+
   async deleteArticle(user: any, id: string) {
     const article = await this.articleModel.findById(id);
     if (!user.roles.includes('admin') && user.userId !== article.authorId)

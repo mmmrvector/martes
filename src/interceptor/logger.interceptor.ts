@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { map } from 'rxjs/operators';
 import { RedisFactory } from '../module/utils/redis.service';
-import { randomService } from '../module/utils/random.service';
+import { RandomService } from '../module/utils/random.service';
 
 @Injectable()
 export class LoggerInterceptor implements NestInterceptor {
@@ -20,7 +20,7 @@ export class LoggerInterceptor implements NestInterceptor {
     // 设置 cookie - reqId键值对，并存入redis中，对于相同的cookie认为是连续的请求
     let reqId = await this.cli.getAsync(`cookie:${cookie}`);
     if (!reqId) {
-      reqId = new randomService().guid();
+      reqId = new RandomService().guid();
       await this.cli.setAsync(`cookie:${cookie}`, reqId);
     }
     // 记录发送请求的日志

@@ -9,6 +9,8 @@ import {
   Param,
   Delete,
   Req,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { Article } from './article.interface';
@@ -18,7 +20,6 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Controller('article')
 export class ArticleController {
-  private readonly logger = new Logger('article');
   constructor(private readonly articleService: ArticleService) {}
 
   /**
@@ -30,14 +31,12 @@ export class ArticleController {
    * @param article 文章内容
    */
   @Post()
-  @Roles('user')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   addArticle(@Body() article: Article) {
     return this.articleService.addArticle(article);
   }
 
   @Post(':id')
-  @Roles('user')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   updateArticle(
     @Req() req: any,
