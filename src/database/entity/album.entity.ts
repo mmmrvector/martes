@@ -1,12 +1,9 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
-import { User } from './user.entity';
-import { Photo } from './photo.entity';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+
+export enum TYPE {
+  PUBLIC = 0,
+  PRIVATE = 1,
+}
 
 @Entity('album')
 export class Album {
@@ -25,15 +22,9 @@ export class Album {
   @Column({ name: 'updated_at' })
   updatedAt: Date;
 
-  @ManyToOne(
-    type => User,
-    user => user.albums,
-  )
-  user: User;
+  @Column({ name: 'user_id' })
+  userId: number;
 
-  @OneToMany(
-    type => Photo,
-    photo => photo.album,
-  )
-  photos: Photo[];
+  @Column({ name: 'type', enum: TYPE, default: TYPE.PUBLIC, width: 2 })
+  type: number;
 }

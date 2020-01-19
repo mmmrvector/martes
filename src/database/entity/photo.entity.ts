@@ -15,9 +15,6 @@ export class Photo {
   @Column()
   description: string;
 
-  @ManyToOne(
-    type => Album,
-    album => album.photos,
-  )
-  album: Album;
+  @Column({ name: 'album_id' })
+  albumId: number;
 }
