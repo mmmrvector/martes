@@ -4,7 +4,7 @@ import { ImageService } from './image.service';
 import { ConfigModule } from '../../config/config.module';
 import { RandomService } from '../utils/random.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User, Album, Photo } from 'src/database/entity';
+import { User, Album, Photo } from '../../database/entity';
 
 @Module({
   imports: [
