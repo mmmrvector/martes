@@ -37,7 +37,7 @@ export class ImageService {
     // 去除uploadToken中的无用部分
     const pattern = uploadToken.match(/<[^>]*>:/);
     const token = pattern
-      ? pattern.index + uploadToken.substring(pattern[0].length)
+      ? uploadToken.substring(pattern.index + pattern[0].length)
       : uploadToken;
     return token;
   }
