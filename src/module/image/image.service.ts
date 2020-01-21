@@ -33,7 +33,13 @@ export class ImageService {
     };
     const putPolicy = new qiniu.rs.PutPolicy(options);
     const uploadToken = putPolicy.uploadToken(mac);
-    return uploadToken;
+    // 七牛返回的uploadToken <PLEASE APPLY YOUR ACCESS KEY>:hf5G7E9fTHYFBLxhAGwDL_8FNzQ=:eyJzY29wZSI6Im1hcnRlcyIsImRlYWRsaW5lIjoxNTc5NTk1MDE0fQ==
+    // 去除uploadToken中的无用部分
+    const pattern = uploadToken.match(/<[^>]*>:/);
+    const token = pattern
+      ? pattern.index + uploadToken.substring(pattern[0].length)
+      : uploadToken;
+    return token;
   }
 
   async createAlbum(album: Album, userId: number) {
